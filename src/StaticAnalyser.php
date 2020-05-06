@@ -407,7 +407,7 @@ class StaticAnalyser
         }
 
         // drill down namespace segments to basename property type declaration
-        while ($token[0] === T_NS_SEPARATOR || $token[0] === T_STRING) {
+        while (in_array($token[0], [T_NS_SEPARATOR, T_STRING, T_ARRAY])) {
             if ($token[0] === T_STRING) {
                 $type = $token[1];
             }

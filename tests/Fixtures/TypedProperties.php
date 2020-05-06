@@ -27,6 +27,12 @@ class TypedProperties
     public ?string $nullableString;
 
     /**
+     * @var \OpenApiFixtures\TypedProperties[]
+     * @OA\Property()
+     */
+    public array $arrayType;
+
+    /**
      * @OA\Property()
      */
     public DateTime $dateTime;

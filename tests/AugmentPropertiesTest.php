@@ -21,6 +21,7 @@ class AugmentPropertiesTest extends OpenApiTestCase
 {
     const KEY_PROPERTY = 'property';
     const KEY_REFERENCE = 'ref';
+    const KEY_ITEMS = 'items';
     const KEY_EXAMPLE = 'example';
     const KEY_DESCRIPTION = 'description';
     const KEY_FORMAT = 'format';
@@ -136,6 +137,7 @@ class AugmentPropertiesTest extends OpenApiTestCase
             $stringType,
             $intType,
             $nullableString,
+            $arrayType,
             $dateTime,
             $qualified,
             $namespace,
@@ -160,6 +162,10 @@ class AugmentPropertiesTest extends OpenApiTestCase
             self::KEY_TYPE => UNDEFINED,
         ]);
         $this->assertName($nullableString, [
+            self::KEY_PROPERTY => UNDEFINED,
+            self::KEY_TYPE => UNDEFINED,
+        ]);
+        $this->assertName($arrayType, [
             self::KEY_PROPERTY => UNDEFINED,
             self::KEY_TYPE => UNDEFINED,
         ]);
@@ -230,6 +236,18 @@ class AugmentPropertiesTest extends OpenApiTestCase
             self::KEY_PROPERTY => 'nullableString',
             self::KEY_TYPE => 'string',
         ]);
+        $this->assertName($arrayType, [
+            self::KEY_PROPERTY => 'arrayType',
+            self::KEY_TYPE => 'array',
+        ]);
+        $this->assertObjectHasAttribute(
+            self::KEY_REFERENCE,
+            $arrayType->{self::KEY_ITEMS}
+        );
+        $this->assertEquals(
+            '#/components/schemas/TypedProperties',
+            $arrayType->{self::KEY_ITEMS}->{self::KEY_REFERENCE}
+        );
         $this->assertName($dateTime, [
             self::KEY_PROPERTY => 'dateTime',
             self::KEY_TYPE => 'string',
